@@ -1,0 +1,65 @@
+*
+{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: rgb(37, 36, 36);
+    padding: 10px;
+}
+
+h1 {
+    height: 100px;
+    font-size: 40px;
+    border-color: black;
+    text-align: center;
+    padding: 30px;
+    letter-spacing: 3px;
+    color:antiquewhite
+  
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+ main div#movie-genre-box select {
+padding: 20px;
+font-size: 15px;
+font-weight: bold;
+cursor: pointer;
+} 
+
+main #movie-popup {
+    align-self: center;
+}
+
+  main img.movie-poster {
+    height: 375px;
+  }
+
+main div.movie-showcase-btns {
+  align-self: center;
+}
+
+main div.movie-showcase-btns button {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+    cursor: pointer;
+    
+}
+
+.highlight {
+  background-color: yellow;
+}
+
+button.hidden {
+visibility: hidden;
+}
+
+
