@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "nerd fonts";
+  src: url("./fonts/nf-windows.ttf");
+}
+
 *
 {
     padding: 0;
@@ -62,6 +67,18 @@ button.hidden {
 visibility: hidden;
 }
 
+#add-movie-popup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: 500px;
+  background-color: #a29bfe;
+}
+
 #add-movie-genre input {
   display: none;
 }
@@ -70,15 +87,32 @@ visibility: hidden;
 display: flex;
     }
 
+    h3 {
+      font-size: 30px;
+      padding: 10px;
+    }
+
 #genre-box select {
 width: 300px;
 height: 62px;
 font-size: 15px;
 font-weight: bold;
+padding: 10px;
 cursor: pointer;
 }
 
 #genre-box button {
   width: 62px;
   height: 62px;
+}
+
+#genre-box button::before {
+  content: "\eadc";
+  font-family: "nerd fonts";
+  font-size: 3em;
+
+}
+
+@media screen {
+  
 }
