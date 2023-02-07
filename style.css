@@ -79,17 +79,17 @@ visibility: hidden;
   background-color: #a29bfe;
 }
 
+#add-movie-popup h3 {
+font-size: 30px;
+padding: 10px;
+}
+
 #add-movie-genre input {
   display: none;
 }
 
 #genre-box  {
 display: flex;
-    }
-
-    h3 {
-      font-size: 30px;
-      padding: 10px;
     }
 
 #genre-box select {
@@ -112,6 +112,13 @@ cursor: pointer;
   font-size: 3em;
 
 }
+
+#movie-title-box input {
+  width: 362px;
+  height: 62px;
+}
+
+
 
 @media screen {
   
