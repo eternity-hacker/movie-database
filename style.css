@@ -72,6 +72,7 @@ visibility: hidden;
   flex-direction: column;
   align-items: center;
   position: absolute;
+  gap: 10px;
   top: 50%;
   left: 50%;
   translate: -50% -50%;
@@ -118,7 +119,65 @@ cursor: pointer;
   height: 62px;
 }
 
+#movie-poster-upload div#drag-n-drop-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 362px;
+  height: 200px;
+  border: 2px dashed whitesmoke;
+  }
 
+  div#drag-n-drop-box img {
+    width: 64px;
+    
+  }
+
+  #movie-poster-upload div#uploaded-movie-file {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 10px;
+    border: 1px solid whitesmoke;
+    padding: 5px;
+
+  }
+
+    div#file-status-icons i.green-check::before {
+    content: "\f058";
+    position: absolute;
+    font-family: "nerd fonts";
+    color: green;
+    font-size: 2em;
+    font-style: normal;
+  }
+
+div#file-status-icons i.red-cross::before {
+  content: "\f057";
+  font-family: "nerd fonts";
+  font-style: normal;
+  color: red;
+  font-size: 2em;
+}
+
+div#file-name-box span {
+  display: block;
+
+}
+
+div#file-name-box span.status-text {
+  font-style: italic;
+  font-weight: bold;
+  text-align: center;
+}
+
+div#remove-file i.trash::before {
+content: "\f1f8";
+font-family: "nerd fonts";
+font-style: normal;
+font-size: 2em;
+color: red;
+}
 
 @media screen {
   
