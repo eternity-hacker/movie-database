@@ -16,11 +16,10 @@ body {
 }
 
 h1 {
-    height: 100px;
+    height: 80px;
     font-size: 40px;
     border-color: black;
     text-align: center;
-    padding: 30px;
     letter-spacing: 3px;
     color:antiquewhite
   
@@ -33,9 +32,9 @@ main {
 }
 
  main div#movie-genre-box select {
-padding: 20px;
 font-size: 15px;
 font-weight: bold;
+height: 40px;
 cursor: pointer;
 } 
 
@@ -44,7 +43,7 @@ main #movie-popup {
 }
 
   main img.movie-poster {
-    height: 375px;
+    height: 325px;
   }
 
 main div.movie-showcase-btns {
@@ -54,7 +53,8 @@ main div.movie-showcase-btns {
 main div.movie-showcase-btns button {
     font-size: 20px;
     font-weight: bold;
-    padding: 10px;
+    height: 40px;
+    width: 40px;
     cursor: pointer;
     
 }
@@ -68,7 +68,8 @@ visibility: hidden;
 }
 
 #add-movie-popup {
-  display: flex;
+  /* display: flex; */
+  display: none;
   flex-direction: column;
   align-items: center;
   position: absolute;
@@ -205,9 +206,23 @@ color: #d63031;
   font-size: 1.2em;
   font-weight: bold;
   background-color: #fd79a8;
-  
-} 
+ } 
 
+ footer {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  margin: 20px 0;
+  text-align: center;
+  color: whitesmoke;
+  font-size: 20px;
+}
+ footer button {
+  width: 100px;
+  height: 35px;
+  margin-top: 10px;
+  background-color: #f368e0;
+ }
 @media screen {
   
 }
