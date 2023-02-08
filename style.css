@@ -81,6 +81,16 @@ visibility: hidden;
   padding: 10px;
 }
 
+#add-movie-popup::before {
+  content: "\f00d";
+  font-family: "nerd fonts";
+  font-size: 25px;
+  position: absolute;
+  right: 0;
+  right: 20px;
+
+}
+
 #add-movie-popup h3 {
 font-size: 30px;
 padding: 10px;
