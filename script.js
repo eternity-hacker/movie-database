@@ -13,7 +13,12 @@ let usersActiveBtnIndex = 0;
 const genres = document.querySelector("select")
 const moviePoster = document.querySelector(".movie-poster")
 const movieShowcaseBtns = document.querySelector(".movie-showcase-btns")
-
+const posterUploadBtn = document.querySelector('input[type="file"]')
+const fileNameBox = document.querySelector(".file-name")
+const preview = document.querySelector("#drag-n-drop-box img")
+const addGenreBtn = document.querySelector("footer button")
+const addMoviePopup = document.querySelector("#add-movie-popup")
+const exitFormBtn = document.querySelector("#exit-form")
 //adding click event listeners to each genre inside select.
 //if statement does not add event listener to a value property assign ""
 for (let i = 0; i < genres.children.length; i++) {
@@ -60,10 +65,41 @@ for (let i = 0; i < genres.children.length; i++) {
 
       //this is the file path to the movie poster image
       moviePoster.src = `./images/${usersActiveGenre}/${usersActiveMovies[usersActiveBtnIndex]}.webp`
-
     })
        
+    //add event listener to posterUploadBtn
+posterUploadBtn.addEventListener("change", function () {
+  //get the users file in the form of a File Object.
+  const file = posterUploadBtn.files[0];
+  const readMyFile = new FileReader();
+  readMyFile.readAsDataURL(file);
 
+  //add event listener to readMyFile which is related to FileReader
+  readMyFile.addEventListener("loadstart", function callback() {
+    })
+    //add event listener to readMyFile which listens for the completed FileReader
+  readMyFile.addEventListener("load", function () {
+      //I am reassigning upload placeholder (hand image) with the users selected file.
+      preview.src = readMyFile.result
+      console.log(preview.src)
+    })
+    //add event listener to readMyFile which shows the progress of the file that's being read
+  readMyFile.addEventListener("progress", function (event) {
+      console.log("Still reading the file", event)
+    })
+      })
+    //add event listener to footer button
+addGenreBtn.addEventListener("click", function (event) {
+      //display add-movie-popup once clicked
+  addMoviePopup.style.display = "flex";
+  addGenreBtn.parentElement.style.display = "none"
+      })
+     //add event listener to exit-form (x)
+exitFormBtn.addEventListener("click", function (event) {
+    //exit out of add-movie-popup once clicked
+  addMoviePopup.style.display = "none"
+  addGenreBtn.parentElement.style.display = "block"
+})
   
       
 
