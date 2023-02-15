@@ -10,9 +10,12 @@ let usersActiveMovies = undefined;
 let usersActiveBtnIndex = 0;
  
 //querySelectors made into objects assigning variables
-const genres = document.querySelector("select")
-const moviePoster = document.querySelector(".movie-poster")
-const movieShowcaseBtns = document.querySelector(".movie-showcase-btns")
+const movie = {
+ genres: document.querySelector("select"),
+ poster: document.querySelector(".movie-poster"),
+ showcaseBtns: document.querySelector(".movie-showcase-btns"),
+}
+
 const posterUploadBtn = document.querySelector('input[type="file"]')
 const fileNameBox = document.querySelector(".file-name")
 const preview = document.querySelector("#drag-n-drop-box img")
@@ -26,13 +29,13 @@ const statusSuccess = document.querySelector(".green-check")
 const trashCan = document.querySelector(".trash")
 //adding click event listeners to each genre inside select.
 //if statement does not add event listener to a value property assign ""
-for (let i = 0; i < genres.children.length; i++) {
+for (let i = 0; i < movie.genres.children.length; i++) {
   // check if option element has a value
-  if (genres.children[i].value) {
-    genres.children[i].addEventListener("click", function (event) {
+  if (movie.genres.children[i].value) {
+    movie.genres.children[i].addEventListener("click", function (event) {
       // resets the highlighted button to #1
       if (usersActiveBtnIndex > 0) {
-       movieShowcaseBtns.children[usersActiveBtnIndex].classList.remove("highlight")
+       movie.showcaseBtns.children[usersActiveBtnIndex].classList.remove("highlight")
       }
       
       // resetting state management
@@ -41,27 +44,27 @@ for (let i = 0; i < genres.children.length; i++) {
       usersActiveMovies = movies[usersActiveGenre]
       
       //injectiong the first movie poster (0 injects 1st movie of array)
-      moviePoster.src = `./images/${usersActiveGenre}/${movies[usersActiveGenre][0]}.webp`
+      movie.poster.src = `./images/${usersActiveGenre}/${movies[usersActiveGenre][0]}.webp`
 
       // reset all buttons to hidden 
-      for (let i = 0; i < movieShowcaseBtns.children.length; i++) {
-        movieShowcaseBtns.children[i].classList.add("hidden")
+      for (let i = 0; i < movie.showcaseBtns.children.length; i++) {
+        movie.showcaseBtns.children[i].classList.add("hidden")
       }
       
       //this code looks at how many movies are in the chosen genre and displays that many buttons
       for (let i = 0; i < usersActiveMovies.length; i++) {
-        movieShowcaseBtns.children[i].classList.remove("hidden")
+        movie.showcaseBtns.children[i].classList.remove("hidden")
       }
 
       // adding highlight class to the first button when user selects a new genre
-      movieShowcaseBtns.children[0].classList.add("highlight")
+      movie.showcaseBtns.children[0].classList.add("highlight")
        })
     } 
 }
 
-    movieShowcaseBtns.addEventListener("click", function (event) {
+    movie.showcaseBtns.addEventListener("click", function (event) {
       // removing previously hightlighted button
-      movieShowcaseBtns.children[usersActiveBtnIndex].classList.remove("highlight")
+      movie.showcaseBtns.children[usersActiveBtnIndex].classList.remove("highlight")
       // reassign the active button index (textContent - 1 = back to index not length)
            usersActiveBtnIndex = event.target.textContent - 1
  
@@ -69,7 +72,7 @@ for (let i = 0; i < genres.children.length; i++) {
       event.target.classList.add("highlight")
 
       //this is the file path to the movie poster image
-      moviePoster.src = `./images/${usersActiveGenre}/${usersActiveMovies[usersActiveBtnIndex]}.webp`
+      movie.poster.src = `./images/${usersActiveGenre}/${usersActiveMovies[usersActiveBtnIndex]}.webp`
     })
        
     //add event listener to posterUploadBtn
@@ -116,8 +119,7 @@ trashCan.addEventListener("click", function () {
      //add event listener to exit-form (x)
 exitFormBtn.addEventListener("click", function (event) {
     //exit out of add-movie-popup once clicked
-  addMoviePop
-  up.style.display = "none"
+  addMoviePopup.style.display = "none"
   addGenreBtn.parentElement.style.display = "block"
 })
   
