@@ -1,3 +1,4 @@
+/* THIS COMMENT WILL BE ERASED */
 @font-face {
   font-family: "nerd fonts";
   src: url("./fonts/nf-windows.ttf");
@@ -159,12 +160,14 @@ cursor: pointer;
   }
 
   #movie-poster-upload div#uploaded-movie-file {
-    display: flex;
+    /* display: flex; */
+    display: none;
     justify-content: space-evenly;
     margin-top: 10px;
     border: 1px solid whitesmoke;
     padding: 5px;
     background-color: #4512ac;
+    
 
   }
 
@@ -175,6 +178,7 @@ cursor: pointer;
     color: green;
     font-size: 2em;
     font-style: normal;
+    visibility: hidden;
   }
 
 div#file-status-icons i.red-cross::before {
