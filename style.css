@@ -178,8 +178,7 @@ cursor: pointer;
     color: green;
     font-size: 2em;
     font-style: normal;
-    visibility: hidden;
-  }
+     }
 
 div#file-status-icons i.red-cross::before {
   content: "\f057";
