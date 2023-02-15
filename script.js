@@ -18,7 +18,10 @@ const fileNameBox = document.querySelector(".file-name")
 const preview = document.querySelector("#drag-n-drop-box img")
 const addGenreBtn = document.querySelector("footer button")
 const addMoviePopup = document.querySelector("#add-movie-popup")
+const statusText = document.querySelector(".status-text")
 const exitFormBtn = document.querySelector("#exit-form")
+const errorIcon = document.querySelector(".red-cross")
+const statusSuccess = document.querySelector("green-check")
 //adding click event listeners to each genre inside select.
 //if statement does not add event listener to a value property assign ""
 for (let i = 0; i < genres.children.length; i++) {
@@ -73,6 +76,7 @@ posterUploadBtn.addEventListener("change", function () {
   const file = posterUploadBtn.files[0];
   const readMyFile = new FileReader();
   readMyFile.readAsDataURL(file);
+  
 
   //add event listener to readMyFile which is related to FileReader
   readMyFile.addEventListener("loadstart", function callback() {
@@ -86,7 +90,12 @@ posterUploadBtn.addEventListener("change", function () {
     //add event listener to readMyFile which shows the progress of the file that's being read
   readMyFile.addEventListener("progress", function (event) {
       console.log("Still reading the file", event)
-    })
+  })
+  //add error event listener
+  readMyFile.addEventListener("error", function (event) {
+      errorIcon.style.visibility = visible
+  })
+
       })
     //add event listener to footer button
 addGenreBtn.addEventListener("click", function (event) {
