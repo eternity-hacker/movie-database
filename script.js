@@ -23,6 +23,7 @@ const statusText = document.querySelector(".status-text")
 const exitFormBtn = document.querySelector("#exit-form")
 const errorIcon = document.querySelector(".red-cross")
 const statusSuccess = document.querySelector(".green-check")
+const trashCan = document.querySelector(".trash")
 //adding click event listeners to each genre inside select.
 //if statement does not add event listener to a value property assign ""
 for (let i = 0; i < genres.children.length; i++) {
@@ -105,11 +106,18 @@ addGenreBtn.addEventListener("click", function (event) {
       //display add-movie-popup once clicked
   addMoviePopup.style.display = "flex";
   addGenreBtn.parentElement.style.display = "none"
-      })
+})
+      //add event listener to trashCan and then add-movie-popup goes away and camera icon is back and text-box with trash can and check button goes away.
+trashCan.addEventListener("click", function () {
+   uploadedMovieFile.style.display = "none"
+  preview.src = "./images/upload-button.png"
+
+    })
      //add event listener to exit-form (x)
 exitFormBtn.addEventListener("click", function (event) {
     //exit out of add-movie-popup once clicked
-  addMoviePopup.style.display = "none"
+  addMoviePop
+  up.style.display = "none"
   addGenreBtn.parentElement.style.display = "block"
 })
   
