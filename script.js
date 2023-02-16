@@ -9,24 +9,31 @@ let usersActiveGenre = undefined;
 let usersActiveMovies = undefined;
 let usersActiveBtnIndex = 0;
  
-//querySelectors made into objects assigning variables
+//querySelectors made into an Object named movie, with keys and values.
 const movie = {
  genres: document.querySelector("select"),
  poster: document.querySelector(".movie-poster"),
  showcaseBtns: document.querySelector(".movie-showcase-btns"),
 }
 
-const posterUploadBtn = document.querySelector('input[type="file"]')
-const fileNameBox = document.querySelector(".file-name")
-const preview = document.querySelector("#drag-n-drop-box img")
-const uploadedMovieFile = document.querySelector("#uploaded-movie-file")
-const addGenreBtn = document.querySelector("footer button")
-const addMoviePopup = document.querySelector("#add-movie-popup")
-const statusText = document.querySelector(".status-text")
-const exitFormBtn = document.querySelector("#exit-form")
-const errorIcon = document.querySelector(".red-cross")
-const statusSuccess = document.querySelector(".green-check")
-const trashCan = document.querySelector(".trash")
+const genreForm = {
+  popup: document.querySelector("#add-movie-popup"),
+  open: document.querySelector("footer button"),
+  close: document.querySelector("#exit-form"),
+    
+poster: {
+  uploadBtn: document.querySelector('input[type="file"]'),
+  status: {
+    fileName: document.querySelector(".file-name"),
+    text: document.querySelector(".status-text"),
+    failure: document.querySelector(".red-cross"),
+    success: document.querySelector(".green-check"),
+    trash: document.querySelector(".trash"),
+  },
+  preview: document.querySelector("#drag-n-drop-box img"),
+  detailsBox: document.querySelector("#uploaded-movie-file"),
+  }
+}
 //adding click event listeners to each genre inside select.
 //if statement does not add event listener to a value property assign ""
 for (let i = 0; i < movie.genres.children.length; i++) {
@@ -75,24 +82,23 @@ for (let i = 0; i < movie.genres.children.length; i++) {
       movie.poster.src = `./images/${usersActiveGenre}/${usersActiveMovies[usersActiveBtnIndex]}.webp`
     })
        
-    //add event listener to posterUploadBtn
-posterUploadBtn.addEventListener("change", function () {
+    //add event listener to genreForm.poster.uploadBtn
+genreForm.poster.uploadBtn.addEventListener("change", function () {
   //get the users file in the form of a File Object.
-  const file = posterUploadBtn.files[0];
+  const file = genreForm.poster.uploadBtn.files[0];
   const readMyFile = new FileReader();
   readMyFile.readAsDataURL(file);
     
   //add event listener to readMyFile which is related to FileReader
   readMyFile.addEventListener("loadstart", function () {
-    uploadedMovieFile.style.display = "flex"
-    fileNameBox.textContent = file.name
+    genreForm.poster.detailsBox.style.display = "flex"
+    genreForm.poster.status.fileName.textContent = file.name
   })
   //add event listener to readMyFile which listens for the completed FileReader
   readMyFile.addEventListener("load", function () {
-    statusSuccess.style.visibility = "visible"
-    console.log(statusSuccess)
+    genreForm.poster.status.success.style.visibility = "visible"
     //I am reassigning upload placeholder (hand image) with the users selected file.
-    preview.src = readMyFile.result
+    genreForm.poster.preview.src = readMyFile.result
     })
   //add event listener to readMyFile which shows the progress of the file that's being read
   readMyFile.addEventListener("progress", function (event) {
@@ -100,27 +106,27 @@ posterUploadBtn.addEventListener("change", function () {
   })
   //add error event listener
   readMyFile.addEventListener("error", function (event) {
-    errorIcon.style.visibility = visible
+    genreForm.poster.status.failure.style.visibility = visible
   })
 })
 
   //add event listener to footer button
-addGenreBtn.addEventListener("click", function (event) {
+genreForm.open.addEventListener("click", function (event) {
       //display add-movie-popup once clicked
-  addMoviePopup.style.display = "flex";
-  addGenreBtn.parentElement.style.display = "none"
+  genreForm.popup.style.display = "flex";
+  genreForm.open.parentElement.style.display = "none"
 })
       //add event listener to trashCan and then add-movie-popup goes away and camera icon is back and text-box with trash can and check button goes away.
-trashCan.addEventListener("click", function () {
-   uploadedMovieFile.style.display = "none"
-  preview.src = "./images/upload-button.png"
+genreForm.poster.status.trash.addEventListener("click", function () {
+   genreForm.poster.detailsBox.style.display = "none"
+  genreForm.poster.preview.src = "./images/upload-button.png"
 
     })
      //add event listener to exit-form (x)
-exitFormBtn.addEventListener("click", function (event) {
+genreForm.close.addEventListener("click", function (event) {
     //exit out of add-movie-popup once clicked
-  addMoviePopup.style.display = "none"
-  addGenreBtn.parentElement.style.display = "block"
+  genreForm.popup.style.display = "none"
+  genreForm.open.parentElement.style.display = "block"
 })
   
       
