@@ -132,6 +132,10 @@ cursor: pointer;
 
 }
 
+#popup-genre-box select {
+  text-align: center;
+}
+
 #movie-title-box input {
   width: 362px;
   height: 62px;
