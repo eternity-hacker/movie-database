@@ -118,6 +118,7 @@ font-size: 15px;
 font-weight: bold;
 padding: 10px;
 cursor: pointer;
+text-align: center;
 }
 
 #popup-genre-box button {
@@ -130,10 +131,6 @@ cursor: pointer;
   font-family: "nerd fonts";
   font-size: 3em;
 
-}
-
-#popup-genre-box select {
-  text-align: center;
 }
 
 #movie-title-box input {
@@ -164,8 +161,6 @@ cursor: pointer;
 
   div#drag-n-drop-box img {
     width: 64px;
-    
-    
   }
 
   #movie-poster-upload div#uploaded-movie-file {
