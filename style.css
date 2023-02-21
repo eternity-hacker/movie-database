@@ -110,8 +110,8 @@ padding: 10px;
 #popup-genre-box  {
 display: flex;
     }
-
-#popup-genre-box select {
+    
+#popup-genre-box select, #popup-genre-box input {
 width: 300px;
 height: 62px;
 font-size: 15px;
