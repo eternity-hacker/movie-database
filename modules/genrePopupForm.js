@@ -75,10 +75,12 @@ genreForm.poster.status.trash.addEventListener("click", function () {
   genreForm.submitMovieBtn.addEventListener("click", function () {
     const movieGenres = Object.keys(movies)
     const genreSelected = movieGenres.includes(genreForm.genres.value)
-    
+    //runs only when user selects genre from dropdown
     if (genreSelected && genreForm.newGenreInput.value === "") {
-      console.log("Movie added to database")
+      movies[genreForm.genres.value].push(genreForm.movieTitleInput.value)
+      console.log("Movie added to database", movies)
     } 
+    // runs only when user inputs custom genre
     else if (genreForm.newGenreInput.value) {
       //checks if genre already exists
       if (movieGenres.includes(genreForm.newGenreInput.value)) {
