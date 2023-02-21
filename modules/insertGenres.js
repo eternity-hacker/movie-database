@@ -1,15 +1,16 @@
 import {movie as homeGenreDropdown, genreForm as popupGenreDropdown} from "./selectors.js"
 
- 
-const movies = {
+
+export const movies = {
   comedy: ["17-again", "bruce-almighty", "the-proposal"],
   drama: ["good-will-hunting", "lean-on-me", "the-blind-side"],
-  thriller: ["lucky-number-slevin", "memory", "the-code"]
+  thriller: ["lucky-number-slevin", "memory", "the-code"],
+  horror: []
 }
  
 const genreList = Object.keys(movies)
 
-export default function insertGenres () {
+export function insertGenres () {
     for (let i = 0; i < genreList.length; i++) {
         //create a new option element for our home dropdown list
         const homeOptionElement = document.createElement("option")
