@@ -7,9 +7,13 @@ export const movie = {
 export const genreForm = {
   popup: document.querySelector("#add-movie-popup"),
   genres: document.querySelector("#popup-genre-box select"),
+  addGenreBtn: document.querySelector("#popup-genre-box button"),
+  newGenreInput: document.querySelector("#popup-genre-box input"),
+  movieTitleInput: document.querySelector("#movie-title"),
+
   open: document.querySelector("footer button"),
   close: document.querySelector("#exit-form"),
-    
+
   poster: {
   uploadBtn: document.querySelector('input[type="file"]'),
   status: {
@@ -21,5 +25,7 @@ export const genreForm = {
   },
   preview: document.querySelector("#drag-n-drop-box img"),
   detailsBox: document.querySelector("#uploaded-movie-file"),
-  }
+  },
+  submitMovieBtn: document.querySelector("#submission-box button"),
+
 }
