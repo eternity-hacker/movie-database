@@ -1,4 +1,5 @@
 import { genreForm } from "./selectors.js"
+import {movies} from "./insertGenres.js"
 export default function () {
     //add event listener to footer button
 genreForm.open.addEventListener("click", function (event) {
@@ -7,7 +8,15 @@ genreForm.open.addEventListener("click", function (event) {
   genreForm.open.parentElement.style.display = "none"
 })
     //add event listener to exit-form (x)
-genreForm.close.addEventListener("click", function (event) {
+  genreForm.close.addEventListener("click", function (event) {
+  //reset form 
+    genreForm.newGenreInput.value = ""
+    genreForm.movieTitleInput.value = ""
+    
+    //reset form display properties
+    genreForm.newGenreInput.style.display = "none"
+    genreForm.genres.style.display = "block"
+    genreForm.addGenreBtn.style.display = "block"
     //exit out of add-movie-popup once clicked
   genreForm.popup.style.display = "none"
   genreForm.open.parentElement.style.display = "block"
@@ -44,8 +53,49 @@ genreForm.poster.status.trash.addEventListener("click", function () {
    genreForm.poster.detailsBox.style.display = "none"
   genreForm.poster.preview.src = "./images/upload-button.png"
 
-    })
-     
+})
+  genreForm.addGenreBtn.addEventListener("click", function () {
+    //change the display model of the genre select dropdown to none
+    genreForm.genres.style.display = "none"
+    genreForm.newGenreInput.style.display = "block"
+    //focus the genreInputElement
+    genreForm.newGenreInput.focus()
+
+    genreForm.newGenreInput.style.cursor = "text"
+    //add placeholder text to inform user to input a new genre
+    genreForm.newGenreInput.placeholder = "Input new Genre..."
+    //once plus icon clicked it goes away
+    genreForm.addGenreBtn.style.display = "none"
+    //change the font-weight to bolder
+    genreForm.newGenreInput.style.fontWeight = "900"
+    genreForm.newGenreInput.style.fontSize = "20px"
+    
+  })
+  //submits the new movie to the local database
+  genreForm.submitMovieBtn.addEventListener("click", function () {
+    const movieGenres = Object.keys(movies)
+    const genreSelected = movieGenres.includes(genreForm.genres.value)
+    
+    if (genreSelected && genreForm.newGenreInput.value === "") {
+      console.log("Movie added to database")
+    } 
+    else if (genreForm.newGenreInput.value) {
+      //checks if genre already exists
+      if (movieGenres.includes(genreForm.newGenreInput.value)) {
+        console.log("The genre already exists")
+        movies[genreForm.newGenreInput.value].push(genreForm.movieTitleInput.value)
+        console.log(movies)
+        //adds genre to movie object if it doesn't exist
+      } else {
+        movies[genreForm.newGenreInput.value] = [genreForm.movieTitleInput.value]
+        console.log("Added new genre & movie")
+      }
+    } else {
+      console.log("Please select or type a genre before proceeding")
+    }
+  })
 }
+   
+
 
     
