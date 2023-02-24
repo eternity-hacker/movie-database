@@ -1,6 +1,6 @@
 import { genreForm } from "./selectors.js"
 import { movies } from "./insertGenres.js"
-const fileListStatus = [];
+const fileListStatus = [{ name: undefined }];
 export default function () {
   //add event listener to footer button
   genreForm.open.addEventListener("click", function (event) {
@@ -85,30 +85,35 @@ export default function () {
     const movieGenres = Object.keys(movies)
     const genreSelected = movieGenres.includes(genreForm.genres.value)
 
-
-    console.log("This is the file status: ", fileListStatus)
     //runs only when user selects genre from dropdown and provides a movie and uploads poster
-    if (genreSelected && genreForm.movieTitleInput.value && genreForm.newGenreInput.value === "" && genreForm.poster.uploadBtn.files.length) {
-      movies[genreForm.genres.value].push(genreForm.movieTitleInput.value)
-      console.log("Movie added to database", movies)
-      //reset form 
-      genreForm.newGenreInput.value = ""
-      genreForm.movieTitleInput.value = ""
+    if (genreSelected && genreForm.movieTitleInput.value && genreForm.newGenreInput.value === "") {
+      //verify that user selected a poster
+      if (fileListStatus[0].name !== checkFileExistence()) {
 
-      //reset form display properties
-      genreForm.newGenreInput.style.display = "none"
-      genreForm.genres.style.display = "block"
-      genreForm.addGenreBtn.style.display = "block"
+        //add new movie to database
+        movies[genreForm.genres.value].push(genreForm.movieTitleInput.value)
+        console.log("Movie added to database", movies)
+        //reset form 
+        genreForm.newGenreInput.value = ""
+        genreForm.movieTitleInput.value = ""
 
-      //resets back to normal after exit
-      genreForm.genres.value = ""
+        //reset form display properties
+        genreForm.newGenreInput.style.display = "none"
+        genreForm.genres.style.display = "block"
+        genreForm.addGenreBtn.style.display = "block"
 
-      //resets detailBox
-      genreForm.poster.status.success.style.visibility = "hidden"
+        //resets back to normal after exit
+        genreForm.genres.value = ""
 
-      //resets status
-      genreForm.poster.detailsBox.style.display = "none"
-      genreForm.poster.preview.src = "./images/upload-button.png"
+        //resets detailBox
+        genreForm.poster.status.success.style.visibility = "hidden"
+
+        //resets status
+        genreForm.poster.detailsBox.style.display = "none"
+        genreForm.poster.preview.src = "./images/upload-button.png"
+      } else {
+        console.log("upload a movie poster")
+      }
     }
     // runs only when user inputs custom genre and adds a movie
     else if (genreForm.newGenreInput.value && genreForm.movieTitleInput.value) {
@@ -138,12 +143,22 @@ export default function () {
 
       //resets poster after exit
     } else {
-      console.log("Please select a genre, movie title and upload a movie poster before submitting")
+      console.log("Please select a genre, and provide a movie title")
     }
   })
 }
 
-
-
+function checkFileExistence() {
+  try {
+    const fileName = genreForm.poster.uploadBtn.files[0].name
+    console.log("This try block runs")
+    return fileName
+  }
+  catch (error) {
+    console.error("The file name was undefined because the file object does not exist")
+    console.log("This catch block runs")
+    return undefined
+  }
+}
 
 
