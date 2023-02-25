@@ -1,5 +1,5 @@
-import { genreForm } from "./selectors.js"
-import { movies } from "./insertGenres.js"
+import { movies } from "./insertGenres.js";
+import { genreForm } from "./selectors.js";
 const fileListStatus = [{ name: undefined }];
 export default function () {
   //add event listener to footer button
@@ -93,24 +93,9 @@ export default function () {
         //add new movie to database
         movies[genreForm.genres.value].push(genreForm.movieTitleInput.value)
         console.log("Movie added to database", movies)
-        //reset form 
-        genreForm.newGenreInput.value = ""
-        genreForm.movieTitleInput.value = ""
+        //resets the genreForm
+        resetForm()
 
-        //reset form display properties
-        genreForm.newGenreInput.style.display = "none"
-        genreForm.genres.style.display = "block"
-        genreForm.addGenreBtn.style.display = "block"
-
-        //resets back to normal after exit
-        genreForm.genres.value = ""
-
-        //resets detailBox
-        genreForm.poster.status.success.style.visibility = "hidden"
-
-        //resets status
-        genreForm.poster.detailsBox.style.display = "none"
-        genreForm.poster.preview.src = "./images/upload-button.png"
       } else {
         console.log("upload a movie poster")
       }
@@ -128,21 +113,11 @@ export default function () {
         movies[genreForm.newGenreInput.value] = [genreForm.movieTitleInput.value]
         console.log("Added new genre & movie")
       }
-
-      //reset form 
-      genreForm.newGenreInput.value = ""
-      genreForm.movieTitleInput.value = ""
-
-      //reset form display properties
-      genreForm.newGenreInput.style.display = "none"
-      genreForm.genres.style.display = "block"
-      genreForm.addGenreBtn.style.display = "block"
-
-      //resets back to normal after exit
-      genreForm.genres.value = ""
-
-      //resets poster after exit
-    } else {
+      //resets the genreForm
+      resetForm()
+    }
+    //resets poster after exit
+    else {
       console.log("Please select a genre, and provide a movie title")
     }
   })
@@ -161,4 +136,24 @@ function checkFileExistence() {
   }
 }
 
+function resetForm() {
+  //reset form 
+  genreForm.newGenreInput.value = ""
+  genreForm.movieTitleInput.value = ""
+
+  //reset form display properties
+  genreForm.newGenreInput.style.display = "none"
+  genreForm.genres.style.display = "block"
+  genreForm.addGenreBtn.style.display = "block"
+
+  //resets back to normal after exit
+  genreForm.genres.value = ""
+
+  //resets detailBox
+  genreForm.poster.status.success.style.visibility = "hidden"
+
+  //resets status
+  genreForm.poster.detailsBox.style.display = "none"
+  genreForm.poster.preview.src = "./images/upload-button.png"
+}
 
