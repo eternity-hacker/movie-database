@@ -120,6 +120,11 @@ export default function () {
       }
       //resets the genreForm
       resetForm()
+      //removing the previous poster
+      previousPoster.pop()
+      //updates with the latest added movie poster
+      previousPoster.push(...genreForm.poster.uploadBtn.files)
+      console.log("previous poster was updated", previousPoster)
     }
     //resets poster after exit
     else {
