@@ -1,6 +1,6 @@
 import { movies } from "./insertGenres.js";
 import { genreForm } from "./selectors.js";
-const fileListStatus = [{ name: undefined }];
+const previousPoster = [{ name: undefined }];
 export default function () {
   //add event listener to footer button
   genreForm.open.addEventListener("click", function (event) {
@@ -32,7 +32,6 @@ export default function () {
   })
   //add event listener to genreForm.poster.uploadBtn
   genreForm.poster.uploadBtn.addEventListener("change", function () {
-    fileListStatus.push(genreForm.poster.uploadBtn.files[0]);
     //get the users file in the form of a File Object.
     const file = genreForm.poster.uploadBtn.files[0];
     const readMyFile = new FileReader();
@@ -88,11 +87,14 @@ export default function () {
     //runs only when user selects genre from dropdown and provides a movie and uploads poster
     if (genreSelected && genreForm.movieTitleInput.value && genreForm.newGenreInput.value === "") {
       //verify that user selected a poster
-      if (fileListStatus[0].name !== checkFileExistence()) {
-
+      if (previousPoster[0].name !== checkCurrentPoster()) {
         //add new movie to database
         movies[genreForm.genres.value].push(genreForm.movieTitleInput.value)
         console.log("Movie added to database", movies)
+        //removing the previous poster
+        previousPoster.pop()
+        //updates with the latest added movie poster
+        previousPoster.push(...genreForm.poster.uploadBtn.files)
         //resets the genreForm
         resetForm()
 
@@ -103,15 +105,18 @@ export default function () {
     // runs only when user inputs custom genre and adds a movie
     else if (genreForm.newGenreInput.value && genreForm.movieTitleInput.value) {
       //checks if genre already exists
-      if (movieGenres.includes(genreForm.newGenreInput.value)) {
-        console.log("The genre already exists")
-        movies[genreForm.newGenreInput.value].push(genreForm.movieTitleInput.value)
-        console.log(movies)
-      }
-      //adds genre if it doesn't exist
-      else {
-        movies[genreForm.newGenreInput.value] = [genreForm.movieTitleInput.value]
-        console.log("Added new genre & movie")
+      if (previousPoster[0].name !== checkCurrentPoster()) {
+        //checks if users new genre exists in the database
+        if (movieGenres.includes(genreForm.newGenreInput.value)) {
+          console.log("The genre already exists")
+          movies[genreForm.newGenreInput.value].push(genreForm.movieTitleInput.value)
+          console.log(movies)
+        }
+        //adds genre if it doesn't exist
+        else {
+          movies[genreForm.newGenreInput.value] = [genreForm.movieTitleInput.value]
+          console.log("Added new genre & movie")
+        }
       }
       //resets the genreForm
       resetForm()
@@ -123,7 +128,7 @@ export default function () {
   })
 }
 
-function checkFileExistence() {
+function checkCurrentPoster() {
   try {
     const fileName = genreForm.poster.uploadBtn.files[0].name
     console.log("This try block runs")
