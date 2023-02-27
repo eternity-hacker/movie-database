@@ -1,6 +1,7 @@
 import { movies } from "./insertGenres.js";
 import { genreForm } from "./selectors.js";
 const previousPoster = [{ name: undefined }];
+let fileReaderInfo = undefined;
 export default function () {
   //add event listener to footer button
   genreForm.open.addEventListener("click", function (event) {
@@ -36,7 +37,7 @@ export default function () {
     const file = genreForm.poster.uploadBtn.files[0];
     const readMyFile = new FileReader();
     readMyFile.readAsDataURL(file);
-
+    fileReaderInfo = readMyFile
     //add event listener to readMyFile which is related to FileReader
     readMyFile.addEventListener("loadstart", function () {
       genreForm.poster.detailsBox.style.display = "flex"
@@ -78,18 +79,24 @@ export default function () {
     //change the font-weight to bolder
     genreForm.newGenreInput.style.fontWeight = "900"
     genreForm.newGenreInput.style.fontSize = "20px"
+
   })
   //submits the new movie to the local database
   genreForm.submitMovieBtn.addEventListener("click", function () {
     const movieGenres = Object.keys(movies)
     const genreSelected = movieGenres.includes(genreForm.genres.value)
-
+    const movieAndTitle = {
+      movieTitle: genreForm.movieTitleInput.value,
+      poster: fileReaderInfo.result
+    }
+    console.log(movieAndTitle)
+    console.log(fileReaderInfo)
     //runs only when user selects genre from dropdown and provides a movie and uploads poster
     if (genreSelected && genreForm.movieTitleInput.value && genreForm.newGenreInput.value === "") {
       //verify that user selected a poster
       if (previousPoster[0].name !== checkCurrentPoster()) {
         //add new movie to database
-        movies[genreForm.genres.value].push(genreForm.movieTitleInput.value)
+        movies[genreForm.genres.value].push(movieAndTitle)
         console.log("Movie added to database", movies)
         //removing the previous poster
         previousPoster.pop()
@@ -109,15 +116,20 @@ export default function () {
         //checks if users new genre exists in the database
         if (movieGenres.includes(genreForm.newGenreInput.value)) {
           console.log("The genre already exists")
-          movies[genreForm.newGenreInput.value].push(genreForm.movieTitleInput.value)
+          //adds users movie to the database
+          movies[genreForm.newGenreInput.value].push(movieAndTitle)
           console.log(movies)
         }
         //adds genre if it doesn't exist
         else {
-          movies[genreForm.newGenreInput.value] = [genreForm.movieTitleInput.value]
+          movies[genreForm.newGenreInput.value] = [movieAndTitle]
+
           console.log("Added new genre & movie")
         }
       }
+      //check if new movie was added to database
+      console.log("Movie added to database", movies)
+
       //resets the genreForm
       resetForm()
       //removing the previous poster
