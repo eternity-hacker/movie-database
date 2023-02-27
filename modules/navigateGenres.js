@@ -1,9 +1,5 @@
 import { movie } from "./selectors.js"
-const movies = {
-  comedy: ["17-again", "bruce-almighty", "the-proposal"],
-  drama: ["good-will-hunting", "lean-on-me", "the-blind-side"],
-  thriller: ["lucky-number-slevin", "memory", "the-code"]
-}
+import { movies } from "./insertGenres.js";
 
 //state management variables (what users clicke on is active)
 let usersActiveGenre = undefined;
@@ -22,7 +18,7 @@ export default function navigateGenres() {
                 usersActiveBtnIndex = 0;
                 usersActiveGenre = event.target.value;
                 usersActiveMovies = movies[usersActiveGenre]
-      
+
                 //injectiong the first movie poster (0 injects 1st movie of array)
                 movie.poster.src = `./images/${usersActiveGenre}/${movies[usersActiveGenre][0]}.webp`
 
