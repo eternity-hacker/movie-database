@@ -1,4 +1,4 @@
-import {movie as homeGenreDropdown, genreForm as popupGenreDropdown} from "./selectors.js"
+import { movie as homeGenreDropdown, genreForm as popupGenreDropdown } from "./selectors.js"
 
 
 export const movies = {
@@ -7,24 +7,42 @@ export const movies = {
   thriller: ["lucky-number-slevin", "memory", "the-code"],
   horror: []
 }
- 
+
 const genreList = Object.keys(movies)
 
-export function insertGenres () {
+export function insertGenres(newGenre = "") {
+  if (newGenre === "") {
     for (let i = 0; i < genreList.length; i++) {
-        //create a new option element for our home dropdown list
-        const homeOptionElement = document.createElement("option")
-      
-        //create a new option element for our popup dropdown list
-        const popupOptionElement = document.createElement("option")
-        //adds genre name to the textContent property of the newly created optionElement.
-        homeOptionElement.textContent = genreList[i]
-        homeOptionElement.className = "genre"
-        //adds genre name to the textContent of popup
-        popupOptionElement.textContent = genreList[i]
-        //populate the home dropdown 
-        homeGenreDropdown.genres.add(homeOptionElement)
-        //populate the popup dropdown
-        popupGenreDropdown.genres.add(popupOptionElement)
+      //create a new option element for our home dropdown list
+      const homeOptionElement = document.createElement("option")
+
+      //create a new option element for our popup dropdown list
+      const popupOptionElement = document.createElement("option")
+      //adds genre name to the textContent property of the newly created optionElement.
+      homeOptionElement.textContent = genreList[i]
+      homeOptionElement.className = "genre"
+      //adds genre name to the textContent of popup
+      popupOptionElement.textContent = genreList[i]
+      //populate the home dropdown 
+      homeGenreDropdown.genres.add(homeOptionElement)
+      //populate the popup dropdown
+      popupGenreDropdown.genres.add(popupOptionElement)
     }
+  }
+  //adds the users new genre to the dropdown menus
+  else {
+    //create a new option element for our home dropdown list
+    const homeOptionElement = document.createElement("option")
+    //create a new option element for our popup dropdown list
+    const popupOptionElement = document.createElement("option")
+    //adds genre name to the textContent property of the newly created optionElement.
+    homeOptionElement.textContent = newGenre
+    homeOptionElement.className = "genre"
+    //adds genre name to the textContent of popup
+    popupOptionElement.textContent = newGenre
+    //populate the home dropdown 
+    homeGenreDropdown.genres.add(homeOptionElement)
+    //populate the popup dropdown
+    popupGenreDropdown.genres.add(popupOptionElement)
+  }
 }
