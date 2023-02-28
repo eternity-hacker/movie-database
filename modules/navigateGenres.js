@@ -1,11 +1,12 @@
 import { movie } from "./selectors.js"
 import { movies } from "./insertGenres.js";
 
-//state management variables (what users clicke on is active)
+//state management variables (what users clicks on is active)
 let usersActiveGenre = undefined;
 let usersActiveMovies = undefined;
 let usersActiveBtnIndex = 0;
 export default function navigateGenres() {
+    //adds a click event listener to each option element.
     for (let i = 0; i < movie.genres.children.length; i++) {
         // check if option element has a value
         if (movie.genres.children[i].value) {
@@ -19,8 +20,14 @@ export default function navigateGenres() {
                 usersActiveGenre = event.target.value;
                 usersActiveMovies = movies[usersActiveGenre]
 
-                //injectiong the first movie poster (0 injects 1st movie of array)
-                movie.poster.src = `./images/${usersActiveGenre}/${movies[usersActiveGenre][0]}.webp`
+                //injectiong the first movie poster (0 represents 1st movie of array)
+                if (typeof movies[usersActiveGenre][0] === "string") {
+                    //injects a business supported movie
+                    movie.poster.src = `./images/${usersActiveGenre}/${movies[usersActiveGenre][0]}.webp`
+                }
+                else {
+                    movie.poster.src = movies[usersActiveGenre][0].poster
+                }
 
                 // reset all buttons to hidden 
                 for (let i = 0; i < movie.showcaseBtns.children.length; i++) {
@@ -42,7 +49,13 @@ export default function navigateGenres() {
         usersActiveBtnIndex = event.target.textContent - 1
         // Add highlighted class to the targeted button
         event.target.classList.add("highlight")
-        //this is the file path to the movie poster image
-        movie.poster.src = `./images/${usersActiveGenre}/${usersActiveMovies[usersActiveBtnIndex]}.webp`
+        //if expressions evaluates to a string of a movie title then run this code
+        if (usersActiveMovies[usersActiveBtnIndex] === "string") {
+            //this is the file path to the movie poster image
+            movie.poster.src = `./images/${usersActiveGenre}/${usersActiveMovies[usersActiveBtnIndex]}.webp`
+            //if not a string then run this code-+
+        } else {
+            movie.poster.src = usersActiveMovies[usersActiveBtnIndex].poster
+        }
     })
 }
