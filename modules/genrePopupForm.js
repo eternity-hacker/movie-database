@@ -1,7 +1,10 @@
-import { movies } from "./insertGenres.js";
+import { movies, insertGenres } from "./insertGenres.js";
 import { genreForm } from "./selectors.js";
+import navigateGenres from "./navigateGenres.js"
+
 const previousPoster = [{ name: undefined }];
 let fileReaderInfo = undefined;
+
 export default function () {
   //add event listener to footer button
   genreForm.open.addEventListener("click", function (event) {
@@ -95,7 +98,7 @@ export default function () {
     if (genreSelected && genreForm.movieTitleInput.value && genreForm.newGenreInput.value === "") {
       //verify that user selected a poster
       if (previousPoster[0].name !== checkCurrentPoster()) {
-        //add new movie to database
+        //add new movie to database (movieAndTitle Object with keys movieTitle and poster)
         movies[genreForm.genres.value].push(movieAndTitle)
         console.log("Movie added to database", movies)
         //removing the previous poster
@@ -123,7 +126,10 @@ export default function () {
         //adds genre if it doesn't exist
         else {
           movies[genreForm.newGenreInput.value] = [movieAndTitle]
-
+          //update the dropdown menus for homepage and popup form
+          insertGenres(genreForm.newGenreInput.value)
+          //add event listener to newGenre and set up movie navigation
+          navigateGenres()
           console.log("Added new genre & movie")
         }
       }
